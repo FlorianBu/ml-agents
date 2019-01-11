@@ -13,10 +13,12 @@ public class StikerAgent : Agent {
     public float Acceleration = 1000;
     public float triangleacc = 1f;
     //public List<Rigidbody> ObservedRigidbodies;
-    public Rigidbody rStriker;
-    public Rigidbody PuckRB;
+    private Rigidbody rStriker;
+    private Rigidbody PuckRB;
     
-    public Transform Puck;
+    public GameObject Puck;
+
+    public GameObject Striker;
     private Vector3 desiredPosition;
     private Vector3 startPosition;
 
@@ -24,7 +26,7 @@ public class StikerAgent : Agent {
 
     void Start()
     {
-        rStriker = GetComponent<Rigidbody>();
+        rStriker = Striker.gameObject.GetComponent<Rigidbody>();
         PuckRB = Puck.gameObject.GetComponent<Rigidbody>();
         //puckController = Puck.GetComponent<PuckController>();
         Application.targetFrameRate = 300;
@@ -36,9 +38,9 @@ public class StikerAgent : Agent {
         float randomZ = UnityEngine.Random.Range(-4f, 4f);
         float randomX = UnityEngine.Random.Range(-16f, -5f);
         float randomPos = UnityEngine.Random.Range(-2f, 2f);
-        PuckRB.position = new Vector3((12f+ randomPos), 0.05f, randomPos);
+        PuckRB.position = new Vector3((12f+ randomPos), 0.05f, randomPos + gameObject.transform.position.z);
         PuckRB.velocity = new Vector3(randomX,0,randomZ);
-        rStriker.position = new Vector3(2f, 0.25f, 0f);
+        rStriker.position = new Vector3(2f, 0.25f, 0f + gameObject.transform.position.z);
         rStriker.velocity = Vector3.zero;
         /*if (Puck.position.x <= 12)
         {
@@ -68,13 +70,13 @@ public class StikerAgent : Agent {
             //currentPos = Math.Sqrt(rStriker.position.x * rStriker.position.x
 
 
-            if(rStriker.position == desiredPosition){
+            if(Striker.transform.position == desiredPosition){
                 rStriker.velocity = Vector3.zero;
             }    
-            else if(rStriker.position.z < desiredPosition.z){
+            else if(Striker.transform.position.z < desiredPosition.z){
                 //helpstrikerVelocity.z =  triangleacc;
                 rStriker.velocity = new Vector3 (0f, 0f, 10f);
-            }else if(rStriker.position.z > desiredPosition.z){
+            }else if(Striker.transform.position.z > desiredPosition.z){
                 //helpstrikerVelocity.z =  - triangleacc;
                 rStriker.velocity = new Vector3 (0f, 0f, -10f);
             }
@@ -143,9 +145,9 @@ public class StikerAgent : Agent {
         //max z position 3.6, -3.6
         //max x position 18, 0
         
-        AddVectorObs((PuckRB.position.x/18f));
-        AddVectorObs((PuckRB.position.z/3.6f));
-        AddVectorObs((rStriker.position.z/3.6f));
+        AddVectorObs(((PuckRB.position.x)/18f));
+        AddVectorObs(((PuckRB.position.z)/3.6f));
+        AddVectorObs(((rStriker.position.z)/3.6f));
 
 
         //AddVectorObs(rStriker.position.z);
@@ -160,7 +162,7 @@ public class StikerAgent : Agent {
         //print(vectorAction[0]);
         //print(vectorAction[1]);
         // scored goal
-        if (Puck.position.x >= 18f)
+        if ((Puck.transform.position.x)>= 18f)
         {
             AddReward(1.0f);
             //PuckRB.position = new Vector3(68.2f, 44.64f, 112.5f);
@@ -172,7 +174,7 @@ public class StikerAgent : Agent {
         AddReward(-1f / 3000f);
         
 
-        if (Puck.position.x <= 0f)
+        if ((Puck.transform.position.x)<=  0f)
         {
             AddReward(-1.0f);
             //PuckRB.position = new Vector3(68.2f, 44.64f, 112.5f);
@@ -231,7 +233,7 @@ public class StikerAgent : Agent {
         desiredPosition.x = 2f;
         desiredPosition.y = 0.25f;
         desiredPosition.z = (controlSignal.z * 2.25f);
-        startPosition = rStriker.position;
+        startPosition = Striker.transform.position;
         //startPosition = new Vector3(2f, 0.25f, 0f);
         //rStriker.MovePosition(transform.position + controlSignal * Time.deltaTime * 100);
         //rStriker.MovePosition(rStriker.position + controlSignal * Time.deltaTime * 50);
