@@ -366,7 +366,6 @@ MonoBehaviour:
   Acceleration: 10
   triangleacc: 0.01
   Puck: {fileID: 239480090}
-  Table: {fileID: 1687896098}
   Striker: {fileID: 32467962}
 --- !u!64 &32467966
 MeshCollider:
@@ -762,7 +761,6 @@ MonoBehaviour:
   Acceleration: 10
   triangleacc: 0.01
   Puck: {fileID: 1843441563}
-  Table: {fileID: 1942791057}
   Striker: {fileID: 66200893}
 --- !u!64 &66200897
 MeshCollider:
@@ -892,7 +890,6 @@ MonoBehaviour:
   Acceleration: 10
   triangleacc: 0.01
   Puck: {fileID: 1016467145}
-  Table: {fileID: 1011920137}
   Striker: {fileID: 68156340}
 --- !u!23 &68156343
 MeshRenderer:
@@ -1904,7 +1901,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &133051518
 Transform:
   m_ObjectHideFlags: 0
@@ -4017,7 +4014,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &500441109
 Transform:
   m_ObjectHideFlags: 0
@@ -4346,7 +4343,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &547220434
 Transform:
   m_ObjectHideFlags: 0
@@ -5292,7 +5289,6 @@ MonoBehaviour:
   Acceleration: 10
   triangleacc: 0.01
   Puck: {fileID: 1157680037}
-  Table: {fileID: 133051517}
   Striker: {fileID: 772165442}
 --- !u!64 &772165446
 MeshCollider:
@@ -5603,7 +5599,6 @@ MonoBehaviour:
   Acceleration: 10
   triangleacc: 0.01
   Puck: {fileID: 70392892}
-  Table: {fileID: 1941436526}
   Striker: {fileID: 791280928}
 --- !u!64 &791280932
 MeshCollider:
@@ -6495,7 +6490,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &982257885
 Transform:
   m_ObjectHideFlags: 0
@@ -6835,7 +6830,6 @@ MonoBehaviour:
   Acceleration: 10
   triangleacc: 0.01
   Puck: {fileID: 1427721201}
-  Table: {fileID: 1488217177}
   Striker: {fileID: 1026623440}
 --- !u!64 &1026623444
 MeshCollider:
@@ -9205,7 +9199,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1488217178
 Transform:
   m_ObjectHideFlags: 0
@@ -9841,7 +9835,6 @@ MonoBehaviour:
   Acceleration: 10
   triangleacc: 0.01
   Puck: {fileID: 1197378646}
-  Table: {fileID: 547220433}
   Striker: {fileID: 1616047290}
 --- !u!64 &1616047294
 MeshCollider:
@@ -10254,7 +10247,6 @@ MonoBehaviour:
   Acceleration: 10
   triangleacc: 0.01
   Puck: {fileID: 1944934116}
-  Table: {fileID: 500441108}
   Striker: {fileID: 1673650749}
 --- !u!64 &1673650753
 MeshCollider:
@@ -10341,7 +10333,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1687896099
 Transform:
   m_ObjectHideFlags: 0
@@ -11382,7 +11374,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1941436527
 Transform:
   m_ObjectHideFlags: 0
@@ -11424,7 +11416,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1942791058
 Transform:
   m_ObjectHideFlags: 0
@@ -12551,7 +12543,6 @@ MonoBehaviour:
   Acceleration: 10
   triangleacc: 0.01
   Puck: {fileID: 2029451286}
-  Table: {fileID: 982257884}
   Striker: {fileID: 2143222513}
 --- !u!64 &2143222517
 MeshCollider:
