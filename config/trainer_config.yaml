@@ -8,7 +8,7 @@ default:
     hidden_units: 128
     lambd: 0.95
     learning_rate: 2.0e-4
-    max_steps: 5.0e6
+    max_steps: 1.5e5
     memory_size: 256
     normalize: true
     num_epoch: 3
@@ -20,12 +20,6 @@ default:
     use_curiosity: false
     curiosity_strength: 0.01
     curiosity_enc_size: 128
-
-AirhockeySmallTable:
-    use_recurrent: true
-    sequence_length: 64
-    memory_size: 256
-
 
 BananaBrain:
     normalize: false

@@ -38,10 +38,12 @@ public class StikerAgent : Agent {
         float randomZ = UnityEngine.Random.Range(-4f, 4f);
         float randomX = UnityEngine.Random.Range(-16f, -5f);
         float randomPos = UnityEngine.Random.Range(-2f, 2f);
-        PuckRB.position = new Vector3((12f+ randomPos), 0.05f, randomPos + gameObject.transform.position.z);
+        
+        PuckRB.position = new Vector3((14f+ randomPos), 0.05f, randomPos + gameObject.transform.position.z);
         PuckRB.velocity = new Vector3(randomX,0,randomZ);
         rStriker.position = new Vector3(2f, 0.25f, 0f + gameObject.transform.position.z);
         rStriker.velocity = Vector3.zero;
+
         /*if (Puck.position.x <= 12)
         {
             //goal
@@ -53,6 +55,7 @@ public class StikerAgent : Agent {
         }else if (Puck.position.x >=)
         */
     }
+    /*
     public void FixedUpdate()
     {
         {
@@ -131,8 +134,8 @@ public class StikerAgent : Agent {
             //desiredZ input
             //startZ input
 
-        }
-    }
+        //}
+    //}
     public override void CollectObservations()
     {
         
@@ -145,9 +148,25 @@ public class StikerAgent : Agent {
         //max z position 3.6, -3.6
         //max x position 18, 0
         
-        AddVectorObs(((PuckRB.position.x)/18f));
+        AddVectorObs(((Puck.transform.position.x)/18f));
+        AddVectorObs(((Puck.transform.position.z)/3.6f));
+        AddVectorObs(((Striker.transform.position.x)/4));
+        AddVectorObs(((Striker.transform.position.z)/3.6f));
+        AddVectorObs(PuckRB.velocity.x);
+        AddVectorObs(PuckRB.velocity.z);
+        AddVectorObs(rStriker.velocity.x);
+        AddVectorObs(rStriker.velocity.z);
+
+
+        /*AddVectorObs(((PuckRB.position.x)/18f));
         AddVectorObs(((PuckRB.position.z)/3.6f));
+        AddVectorObs(((PuckRB.position.x)/4));
         AddVectorObs(((rStriker.position.z)/3.6f));
+        AddVectorObs(PuckRB.velocity.x);
+        AddVectorObs(PuckRB.velocity.z);
+        AddVectorObs(PuckRB.velocity.x);
+        AddVectorObs(PuckRB.velocity.z);
+        */
 
 
         //AddVectorObs(rStriker.position.z);
@@ -224,16 +243,19 @@ public class StikerAgent : Agent {
         controlSignal.z = Mathf.Clamp(vectorAction[1], -1, 1);
 
         //to move directly
-        //rStriker.AddForce(controlSignal, ForceMode.VelocityChange);
+        rStriker.AddForce(controlSignal * 3, ForceMode.VelocityChange);
 
+        
+        
+        
         //to get the position as output
         //transform normalized positions to absolute
         //desiredPosition.x = (controlSignal.x * 51f) + 26f;
         //desiredPosition.x = (0.5f *UnityEngine.Random.Range(0.1f, 0.3f) * 51f) + 26f; ;
-        desiredPosition.x = 2f;
-        desiredPosition.y = 0.25f;
-        desiredPosition.z = (controlSignal.z * 2.25f);
-        startPosition = Striker.transform.position;
+        //desiredPosition.x = 2f;
+        //desiredPosition.y = 0.25f;
+        //desiredPosition.z = (controlSignal.z * 2.25f);
+        //startPosition = Striker.transform.position;
         //startPosition = new Vector3(2f, 0.25f, 0f);
         //rStriker.MovePosition(transform.position + controlSignal * Time.deltaTime * 100);
         //rStriker.MovePosition(rStriker.position + controlSignal * Time.deltaTime * 50);
