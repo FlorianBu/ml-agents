@@ -39,7 +39,7 @@ public class StikerAgent : Agent {
         float randomX = UnityEngine.Random.Range(-16f, -5f);
         float randomPos = UnityEngine.Random.Range(-2f, 2f);
         
-        PuckRB.position = new Vector3((14f+ randomPos), 0.05f, randomPos + gameObject.transform.position.z);
+        PuckRB.position = new Vector3((14f+ randomPos), 0.05f, gameObject.transform.position.z);
         PuckRB.velocity = new Vector3(randomX,0,randomZ);
         rStriker.position = new Vector3(2f, 0.25f, 0f + gameObject.transform.position.z);
         rStriker.velocity = Vector3.zero;

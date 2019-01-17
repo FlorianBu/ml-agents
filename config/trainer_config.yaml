@@ -7,8 +7,8 @@ default:
     gamma: 0.99
     hidden_units: 128
     lambd: 0.95
-    learning_rate: 2.0e-4
-    max_steps: 1.5e5
+    learning_rate: 1.5e-4
+    max_steps: 5e6
     memory_size: 256
     normalize: true
     num_epoch: 3
@@ -16,7 +16,7 @@ default:
     time_horizon: 64
     sequence_length: 64
     summary_freq: 1000
-    use_recurrent: true
+    use_recurrent: false
     use_curiosity: false
     curiosity_strength: 0.01
     curiosity_enc_size: 128
