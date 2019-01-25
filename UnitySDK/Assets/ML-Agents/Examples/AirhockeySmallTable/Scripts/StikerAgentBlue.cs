@@ -25,7 +25,8 @@ public class StikerAgentBlue : Agent {
     private Vector3 helpstrikerVelocity = Vector3.zero;
 
 
-    private bool checktime = false;
+    private bool checktime = true;
+    private bool checkInput = false;
     private float FixedUpdatetime = 0;
     private float Updatetime = 0;
     //testing variables
@@ -107,8 +108,8 @@ public class StikerAgentBlue : Agent {
         double path = Math.Sqrt(route[0] * route[0] + route[2] * route[2]);
         //we want to reach the position in 10 ms
         //double velocity = route / 0.01f;
-        helpstrikerVelocity.x = route.x / 0.1f;
-        helpstrikerVelocity.z = route.z / 0.1f;
+        helpstrikerVelocity.x = route.x / 0.05f;
+        helpstrikerVelocity.z = route.z / 0.05f;
         rStriker.velocity = helpstrikerVelocity;
 
     }
@@ -238,27 +239,32 @@ public class StikerAgentBlue : Agent {
             netinputtime = Time.time;
             float prenetinputtime = netinputtime;
             Debug.Log("netinputtime" + netinputtime);
-            if (netinputtime == prenetinputtime)
-            {
-                netcounter += netcounter;
-            }
-            else
-            {
-                Debug.Log("netinputcounter (" + netinputtime + "):" + netcounter);
-                netcounter = 0;
-            }
+            
         }
+        //at the real table we dont detect everything either
+        if(Puck.transform.position.x < 15){
+            AddVectorObs(((Puck.transform.position.x)/18f));
+            AddVectorObs(((Puck.transform.position.z)/3.7f));
+            AddVectorObs(((Striker.transform.position.x)/4));
+            AddVectorObs(((Striker.transform.position.z)/3.7f));
+            AddVectorObs(PuckRB.velocity.x/30);
+            AddVectorObs(PuckRB.velocity.z/30);
+        }
+        else
+        {
+            AddVectorObs(0);
+            AddVectorObs(0);
+            AddVectorObs(0);
+            AddVectorObs(0);
+            AddVectorObs(0);
+            AddVectorObs(0);
+        }
+        if (checkInput == true)
+        {
+            Debug.Log("Velocity Puck.x " + PuckRB.velocity.x);
+            Debug.Log("Velocity Puck.z " + PuckRB.velocity.z);
 
-        AddVectorObs(((Puck.transform.position.x)/18f));
-        AddVectorObs(((Puck.transform.position.z)/3.6f));
-        AddVectorObs(((Striker.transform.position.x)/4));
-        AddVectorObs(((Striker.transform.position.z)/3.6f));
-        AddVectorObs(PuckRB.velocity.x);
-        AddVectorObs(PuckRB.velocity.z);
-        AddVectorObs(rStriker.velocity.x);
-        AddVectorObs(rStriker.velocity.z);
-
-
+        }
 
 
         /*AddVectorObs(((PuckRB.position.x)/18f));
@@ -291,15 +297,7 @@ public class StikerAgentBlue : Agent {
             netouttime = Time.time;
             float prenetouttime = netouttime;
             Debug.Log("netoutputtime" + netouttime);
-            if (netinputtime == prenetouttime)
-            {
-                netcounter += netcounter;
-            }
-            else
-            {
-                Debug.Log("netoutcounter (" + netouttime + "):" + netcounter);
-                netcounter = 0;
-            }
+            
         }
 
 

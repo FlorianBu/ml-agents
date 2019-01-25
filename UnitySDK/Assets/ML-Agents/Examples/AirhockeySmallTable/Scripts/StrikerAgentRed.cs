@@ -28,6 +28,9 @@ public class StrikerAgentRed : Agent
     private float timeStart = 0;
 
 
+    public GameObject desiredPos;
+
+
     void Start()
     {
         rStriker = Striker.gameObject.GetComponent<Rigidbody>();
@@ -43,7 +46,7 @@ public class StrikerAgentRed : Agent
         float randomX = UnityEngine.Random.Range(-16f, -5f);
         float randomPos = UnityEngine.Random.Range(-2f, 2f);
 
-        PuckRB.position = new Vector3((14f + randomPos), 0.05f, gameObject.transform.position.z);
+        PuckRB.position = new Vector3((13f + randomPos), 0.05f, gameObject.transform.position.z);
         PuckRB.velocity = new Vector3(randomX, 0, randomZ);
         if (Striker.gameObject.tag == "StrikerBlue")
         {
@@ -52,7 +55,7 @@ public class StrikerAgentRed : Agent
         }
         if (Striker.gameObject.tag == "StrikerRed")
         {
-            rStriker.position = new Vector3(14f, 0.25f, 0f + gameObject.transform.position.z);
+            rStriker.position = new Vector3(16f, 0.25f, 0f + gameObject.transform.position.z);
             rStriker.velocity = Vector3.zero;
         }
 
@@ -79,64 +82,21 @@ public class StrikerAgentRed : Agent
 
     public void FixedUpdate()
     {
-        {
-            //fixedupdate is called every 0.0333seconds = 300 fps
-            //
-            //max position
-            //half of it is max velocity and change of velocity
-            //until then constant acceleration
-            //afterwards same constant negative acceleration
+        Vector3 route = desiredPosition - startPosition;
+        Vector3 routeNormalized = route.normalized;
+        Debug.Log("Vector" + route);
+        Debug.Log("Normalized Vector" + routeNormalized);
+        double path = Math.Sqrt(route[0] * route[0] + route[2] * route[2]);
+        //we want to reach the position in 10 ms
+        //double velocity = route / 0.01f;
+        helpstrikerVelocity.x = route.x / 0.05f;
+        helpstrikerVelocity.z = route.z / 0.05f;
+        rStriker.velocity = helpstrikerVelocity;
 
-
-            Vector3 route = desiredPosition - startPosition;
-            double path = Math.Sqrt(route[0] * route[0] + route[2] * route[2]);
-            float midway = Mathf.Abs((route[2] / 2));
-            //currentPos = Math.Sqrt(rStriker.position.x * rStriker.position.x
-
-
-            if (Striker.transform.position == desiredPosition)
-            {
-                rStriker.velocity = Vector3.zero;
-            }
-            else if (Striker.transform.position.z < desiredPosition.z)
-            {
-                //helpstrikerVelocity.z =  triangleacc;
-                rStriker.velocity = new Vector3(0f, 0f, 10f);
-            }
-            else if (Striker.transform.position.z > desiredPosition.z)
-            {
-                //helpstrikerVelocity.z =  - triangleacc;
-                rStriker.velocity = new Vector3(0f, 0f, -10f);
-            }
-            //rStriker.velocity = helpstrikerVelocity;
-        }
     }
 
-    /*else if (rStriker.position[0] < midway[0] && rStriker.position[2] < midway[2])
-    {
-
-        helpstrikerVelocity[0] = rStriker.velocity[0] + triangleacc * route[0];
-        helpstrikerVelocity[2] = rStriker.velocity[2] + triangleacc * route[2];
-        rStriker.velocity = helpstrikerVelocity;
-    }
-    else if (rStriker.position[0] >= midway[0] && rStriker.position[2] >= midway[2])
-    {
-        helpstrikerVelocity[0] = rStriker.velocity[0] - triangleacc * route[0];
-        helpstrikerVelocity[2] = rStriker.velocity[2] - triangleacc * route[2];
-        rStriker.velocity = helpstrikerVelocity;
-    }*/
-    //helpstrikerVelocity[0] = route[0];
-    //helpstrikerVelocity[2] = route[2];
-    //rStriker.velocity = helpstrikerVelocity;
 
 
-
-    //1d triangle drive
-    //desiredZ input
-    //startZ input
-
-    //}
-    //}
     public override void CollectObservations()
     {
 
@@ -149,17 +109,21 @@ public class StrikerAgentRed : Agent
         //max z position 3.6, -3.6
         //max x position 18, 0
 
+        //we flip the input so its the same for the net -> we can use the same network
+    
+        AddVectorObs(1-((Puck.transform.position.x) / 18f));
+        AddVectorObs(((-Puck.transform.position.z) / 3.7f));
+        AddVectorObs(1-((Striker.transform.position.x) / 4));
+        AddVectorObs(((-Striker.transform.position.z) / 3.7f));
+        AddVectorObs(-PuckRB.velocity.x/30);
+        AddVectorObs(-PuckRB.velocity.z/30);
 
-        AddVectorObs(((Puck.transform.position.x) / 18f));
-        AddVectorObs(((Puck.transform.position.z) / 3.6f));
-        AddVectorObs(((Striker.transform.position.x) / 4));
-        AddVectorObs(((Striker.transform.position.z) / 3.6f));
-        AddVectorObs(PuckRB.velocity.x);
-        AddVectorObs(PuckRB.velocity.z);
-        AddVectorObs(rStriker.velocity.x);
-        AddVectorObs(rStriker.velocity.z);
+        Debug.Log("Velocity Puck.x " + (-PuckRB.velocity.x));
+        Debug.Log("Velocity Puck.z " + (-PuckRB.velocity.z));
+
 
         timeStart = Time.time;
+
 
 
         /*AddVectorObs(((PuckRB.position.x)/18f));
@@ -271,6 +235,16 @@ public class StrikerAgentRed : Agent
         //rStriker.AddForce(controlSignal * speed);
 
         //rStriker.AddForce(controlSignal * Acceleration, ForceMode.Acceleration);
+
+
+        desiredPosition.x = 17f - (controlSignal.x + 1);
+        desiredPosition.y = 0.25f;
+        desiredPosition.z = (-controlSignal.z * 2.25f);
+        startPosition = Striker.transform.position;
+        desiredPos.transform.position = desiredPosition;
+
+
+
 
     }
     /*void OnCollisionEnter(Collision c)
