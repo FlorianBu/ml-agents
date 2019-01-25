@@ -35,11 +35,13 @@ public class StikerAgentBlue : Agent {
 
     private int counter = 0;
     private int netcounter = 0;
+
     public GameObject desiredPos;
     
 
     void Start()
     {
+
         rStriker = Striker.gameObject.GetComponent<Rigidbody>();
         PuckRB = Puck.gameObject.GetComponent<Rigidbody>();
         //puckController = Puck.GetComponent<PuckController>();
@@ -53,16 +55,16 @@ public class StikerAgentBlue : Agent {
         float randomX = UnityEngine.Random.Range(-16f, -5f);
         float randomPos = UnityEngine.Random.Range(-2f, 2f);
         
-        PuckRB.position = new Vector3((14f+ randomPos), 0.05f, gameObject.transform.position.z);
+        PuckRB.position = new Vector3((14f+ randomPos), 0.05f, 0f);
         PuckRB.velocity = new Vector3(randomX,0,randomZ);
         if(Striker.gameObject.tag == "StrikerBlue")
         {
-            rStriker.position = new Vector3(2f, 0.25f, 0f + gameObject.transform.position.z);
+            rStriker.position = new Vector3(2f, 0.25f, 0f + 0f);
             rStriker.velocity = Vector3.zero;
         }
         if (Striker.gameObject.tag == "StrikerRed")
         {
-            rStriker.position = new Vector3(14f, 0.25f, 0f + gameObject.transform.position.z);
+            rStriker.position = new Vector3(14f, 0.25f, 0f + 0f);
             rStriker.velocity = Vector3.zero;
         }
 
