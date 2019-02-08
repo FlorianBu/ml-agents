@@ -26,9 +26,6 @@ TagManager:
   - pyramid
   - switchOn
   - stone
-  - Puck
-  - StrikerBlue
-  - StrikerRed
   layers:
   - Default
   - TransparentFX
